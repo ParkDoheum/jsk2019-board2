@@ -14,6 +14,11 @@ public class DetailSev extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String i = request.getParameter("i");
+		
+		BoardVO vo = BoardDAO.getBoard(i);		
+		request.setAttribute("vo", vo);
+		
 		request.setAttribute("view", "detail.jsp");
 		RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 		rd.forward(request, response);

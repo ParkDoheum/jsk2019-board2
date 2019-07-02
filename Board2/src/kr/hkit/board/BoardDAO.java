@@ -90,4 +90,75 @@ public class BoardDAO {
 
 		return list;
 	}
+	
+	public static BoardVO getBoard(int i) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;		
+		BoardVO vo = new BoardVO();		
+		String sql = " SELECT * FROM t_board WHERE i = ? ";		
+		try {
+			con = getCon();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, i);			
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				String title = rs.getString("title");
+				String content = rs.getString("content");
+				String pic = rs.getString("pic");
+				String rdate = rs.getString("rdate");
+				
+				vo.setI(i);
+				vo.setTitle(title);
+				vo.setContent(content);
+				vo.setPic(pic);
+				vo.setRdate(rdate);				
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps, rs);
+		}
+		
+		return vo;
+	}
+	
+	
+	public static BoardVO getBoard(String i) {
+		int intI = Integer.parseInt(i);		
+		return getBoard(intI);
+	}
+	
+	//true : 비밀번호 맞음, false:비밀번호 틀림
+	public static boolean confirmPw(String pw, int i) {
+		boolean result = false;
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = " SELECT i FROM t_board WHERE i = ? AND pw = ? ";
+		
+		try {
+			con = getCon();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, i);
+			ps.setString(2, pw);
+			
+			result = ps.executeUpdate() == 1 ? true : false;			
+			
+		} catch (Exception e) {			
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
 }
+
+
+
+
+
+
+

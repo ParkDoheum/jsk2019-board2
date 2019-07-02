@@ -24,8 +24,14 @@
 	<% for(BoardVO vo : list) {%>
 	<tr>
 		<td><%=vo.getI() %></td>
-		<td><%=vo.getTitle() %></td>
+		<td><a href="detail?i=<%=vo.getI()%>"><%=vo.getTitle() %></a></td>
 		<td><%=vo.getRdate() %></td>
 	</tr>
 	<% } %>
 </table>
+
+
+
+
+
+
