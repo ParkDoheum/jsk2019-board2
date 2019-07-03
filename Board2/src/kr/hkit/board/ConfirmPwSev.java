@@ -17,7 +17,6 @@ public class ConfirmPwSev extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("needForPw.jsp");
 		rd.forward(request, response);
 	}
-
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String typ = request.getParameter("typ");
@@ -35,9 +34,21 @@ public class ConfirmPwSev extends HttpServlet {
 		
 		if(typ.equals("1")) { //수정
 			
-		} else if(typ.equals("2")) { //삭제
 			
+		} else if(typ.equals("2")) { //삭제			
+			BoardDAO.delBoard(Integer.parseInt(i));			
+			response.sendRedirect("list");
 		}
 	}
 
 }
+
+
+
+
+
+
+
+
+
+

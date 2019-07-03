@@ -154,6 +154,25 @@ public class BoardDAO {
 		return result;
 	}
 	
+	//레코드 삭제
+	public static void delBoard(int i) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String sql = " delete from t_board where i = ?  ";
+		
+		try {
+			con = getCon();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, i);			
+			ps.execute();
+			
+		} catch (Exception e) {		
+			e.printStackTrace();
+		} finally {
+			close(con, ps, null);
+		}
+	}
 }
 
 
