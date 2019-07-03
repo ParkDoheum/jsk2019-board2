@@ -3,7 +3,6 @@
 <%@ page import="kr.hkit.board.*" %>    
 <%
 	BoardVO vo = (BoardVO)request.getAttribute("vo");	
-	int si_2 = vo.getI();	
 %>
 
 <%=vo.getI() %><br>

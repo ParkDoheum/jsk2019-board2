@@ -199,6 +199,33 @@ public class BoardDAO {
 			return result;
 		}
 	}
+	
+	//총 페이징 수 알아내기
+	public static int getTotalPagingCnt(int recordCnt) {
+		int result = 0;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = " select ceil(count(i) / ?) from t_board ";
+		
+		try {
+			con = getCon();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, recordCnt);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				result = rs.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps, rs);
+			return result;	
+		}
+		
+	}
 }
 
 

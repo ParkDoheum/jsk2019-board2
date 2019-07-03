@@ -16,10 +16,10 @@ public class ListSev extends HttpServlet {
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String search = request.getParameter("search");
-		
-		List<BoardVO> list = BoardDAO.selectAll(search);
-		
+			
+		List<BoardVO> list = BoardDAO.selectAll(search);		
 		request.setAttribute("list",  list);
+		
 		request.setAttribute("view", "list.jsp");
 		RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 		rd.forward(request, response);

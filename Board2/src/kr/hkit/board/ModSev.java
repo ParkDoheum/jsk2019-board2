@@ -44,7 +44,7 @@ public class ModSev extends HttpServlet {
 		
 		int result = BoardDAO.updateBoard(vo);
 		if(result == 1) {
-			response.sendRedirect("detail");
+			response.sendRedirect("detail?i=" + i);
 		} else {		
 			request.setAttribute("vo", vo);
 			request.setAttribute("msg", "수정을 할 수 없습니다.");

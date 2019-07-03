@@ -8,6 +8,7 @@
 		search = "";
 	}
 	List<BoardVO> list = (List<BoardVO>) request.getAttribute("list");
+	
 %>    
 <div>
 	<form method="get" action="list">
@@ -29,6 +30,9 @@
 	</tr>
 	<% } %>
 </table>
+<div>
+	
+</div>
 
 
 
