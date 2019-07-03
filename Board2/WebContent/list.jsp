@@ -8,7 +8,7 @@
 		search = "";
 	}
 	List<BoardVO> list = (List<BoardVO>) request.getAttribute("list");
-	
+	int totalPagingCnt = (int)request.getAttribute("totalPagingCnt");
 %>    
 <div>
 	<form method="get" action="list">
@@ -31,7 +31,9 @@
 	<% } %>
 </table>
 <div>
-	
+	<% for(int i=1; i<=totalPagingCnt; i++) { %>
+		<a href="list?page=<%=i %>&search=<%=search%>"><%=i %></a>
+	<% } %> 
 </div>
 
 

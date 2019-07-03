@@ -53,20 +53,33 @@ public class BoardDAO {
 		}
 	}
 
-	public static List<BoardVO> selectAll(String search) {
+	public static List<BoardVO> selectAll(String search, String p, int recordCnt) {
+		int page = Integer.parseInt(p);
+		
+		
+		int eIdx = page * recordCnt;
+		int sIdx = eIdx - (recordCnt - 1);
+		
 		List<BoardVO> list = new ArrayList();
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String sql = " SELECT * FROM t_board ";
-		if (search != null) {
+		String sql = " select * from ( "
+				+ " SELECT i, title, rdate,"
+				+ " ROW_NUMBER() OVER (ORDER BY i desc) as num"
+				+ " FROM t_board  ";
+		
+		if (search != null && !search.equals("")) {
 			sql += " where title like '%" + search + "%' ";
 		}
-		sql += " order by i desc ";
+		sql += ") where num between ? and ? ";
 
 		try {
 			con = getCon();
 			ps = con.prepareStatement(sql);
+			ps.setInt(1, sIdx);
+			ps.setInt(2, eIdx);
+			
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				int i = rs.getInt("i");
@@ -201,13 +214,17 @@ public class BoardDAO {
 	}
 	
 	//총 페이징 수 알아내기
-	public static int getTotalPagingCnt(int recordCnt) {
+	public static int getTotalPagingCnt(int recordCnt, String search) {
 		int result = 0;
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
 		String sql = " select ceil(count(i) / ?) from t_board ";
+		
+		if(search != null && !search.equals("")) {
+			sql += " where title like '%" + search + "%' ";
+		}
 		
 		try {
 			con = getCon();

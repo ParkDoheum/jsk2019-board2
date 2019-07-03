@@ -16,8 +16,19 @@ public class ListSev extends HttpServlet {
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String search = request.getParameter("search");
-			
-		List<BoardVO> list = BoardDAO.selectAll(search);		
+		
+		String page = request.getParameter("page");
+		if(page == null) {
+			page = "1";
+		}
+		
+		int recordCnt = 10;
+		
+		//페이징 숫자를 찍기위한 용도
+		int totalPagingCnt = BoardDAO.getTotalPagingCnt(recordCnt, search);
+		request.setAttribute("totalPagingCnt",  totalPagingCnt);
+		
+		List<BoardVO> list = BoardDAO.selectAll(search, page, recordCnt);
 		request.setAttribute("list",  list);
 		
 		request.setAttribute("view", "list.jsp");
