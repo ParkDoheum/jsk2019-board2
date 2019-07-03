@@ -190,6 +190,8 @@ public class BoardDAO {
 			ps.setString(4,  vo.getPw());
 			ps.setInt(5, vo.getI());
 			
+			result = ps.executeUpdate();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

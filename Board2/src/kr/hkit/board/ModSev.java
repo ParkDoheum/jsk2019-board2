@@ -15,10 +15,12 @@ public class ModSev extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//수정 
-		String i = request.getParameter("i");
-		BoardVO vo = BoardDAO.getBoard(i);
-		request.setAttribute("vo", vo);
-		
+		BoardVO vo = (BoardVO)request.getAttribute("vo");
+		if(vo == null) {
+			String i = request.getParameter("i");
+			vo = BoardDAO.getBoard(i);
+			request.setAttribute("vo", vo);	
+		}
 		request.setAttribute("view", "mod.jsp");
 		RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 		rd.forward(request, response);
@@ -43,7 +45,8 @@ public class ModSev extends HttpServlet {
 		int result = BoardDAO.updateBoard(vo);
 		if(result == 1) {
 			response.sendRedirect("detail");
-		} else {			
+		} else {		
+			request.setAttribute("vo", vo);
 			request.setAttribute("msg", "수정을 할 수 없습니다.");
 			doGet(request, response);
 		}

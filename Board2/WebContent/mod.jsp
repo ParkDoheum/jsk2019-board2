@@ -16,7 +16,7 @@
 		내용 <textarea name="content"><%=vo.getContent() %></textarea><br>
 		사진 : <input type="text" name="pic" value="<%=vo.getPic() %>"><br>
 		
-		<input type="submit" value="등록">
+		<input type="submit" value="수정">
 	</form>
 	<div>
 		<% 
