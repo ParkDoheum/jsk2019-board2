@@ -33,7 +33,7 @@ public class ConfirmPwSev extends HttpServlet {
 		}
 		
 		if(typ.equals("1")) { //수정
-			
+			response.sendRedirect("mod?i=" + i);
 			
 		} else if(typ.equals("2")) { //삭제			
 			BoardDAO.delBoard(Integer.parseInt(i));			

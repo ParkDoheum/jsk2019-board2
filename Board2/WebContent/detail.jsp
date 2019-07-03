@@ -12,7 +12,7 @@
 <% if(vo.getPic() != null && !vo.getPic().equals(""))  { %>
 	<img src="<%=vo.getPic() %>"><br>
 <% } %>
-<a href="confirmPw?i=<%=vo.getI()%>&typ=1"><button>삭제</button></a><br>
-<a href="confirmPw?i=<%=vo.getI()%>&typ=2"><button>수정</button></a>
+<a href="confirmPw?i=<%=vo.getI()%>&typ=2"><button>삭제</button></a><br>
+<a href="confirmPw?i=<%=vo.getI()%>&typ=1"><button>수정</button></a>
 
 

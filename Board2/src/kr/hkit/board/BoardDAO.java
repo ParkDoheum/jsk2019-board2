@@ -49,9 +49,8 @@ public class BoardDAO {
 			e.printStackTrace();
 		} finally {
 			close(con, ps, null);
+			return result;
 		}
-
-		return result;
 	}
 
 	public static List<BoardVO> selectAll(String search) {
@@ -171,6 +170,31 @@ public class BoardDAO {
 			e.printStackTrace();
 		} finally {
 			close(con, ps, null);
+		}
+	}
+	
+	public static int updateBoard(BoardVO vo) {
+		int result = 0;
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String sql = " update t_board set title = ?, content = ?, pic = ?, pw = ?"
+				+ " WHERE i = ? ";
+		
+		try {
+			con = getCon();
+			ps = con.prepareStatement(sql);
+			ps.setString(1,  vo.getTitle());
+			ps.setString(2, vo.getContent());
+			ps.setString(3,  vo.getPic());
+			ps.setString(4,  vo.getPw());
+			ps.setInt(5, vo.getI());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps, null);
+			return result;
 		}
 	}
 }

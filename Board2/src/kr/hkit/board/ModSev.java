@@ -9,12 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/reg")
-public class RegSev extends HttpServlet {
+@WebServlet("/mod")
+public class ModSev extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-           
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("view", "reg.jsp");
+		//수정 
+		String i = request.getParameter("i");
+		BoardVO vo = BoardDAO.getBoard(i);
+		request.setAttribute("vo", vo);
+		
+		request.setAttribute("view", "mod.jsp");
 		RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 		rd.forward(request, response);
 	}
@@ -22,30 +27,26 @@ public class RegSev extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
+		String i = request.getParameter("i");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String pic = request.getParameter("pic");
 		String pw = request.getParameter("pw");
 				
 		BoardVO vo = new BoardVO();
+		vo.setI(Integer.parseInt(i));
 		vo.setTitle(title);
 		vo.setContent(content);
 		vo.setPic(pic);
 		vo.setPw(pw);
 		
-		int result = BoardDAO.insertBoard(vo);
+		int result = BoardDAO.updateBoard(vo);
 		if(result == 1) {
-			response.sendRedirect("list");
+			response.sendRedirect("detail");
 		} else {			
-			request.setAttribute("msg", "등록을 할 수 없습니다.");
+			request.setAttribute("msg", "수정을 할 수 없습니다.");
 			doGet(request, response);
 		}
-		
 	}
+
 }
-
-
-
-
-
-
