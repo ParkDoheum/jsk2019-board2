@@ -61,6 +61,27 @@ public class CmtDAO {
 		}
 		
 		return list;
+	}	
+
+	public static int delete(int i_cmt) {
+		int result = 0;
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = " delete  from t_board_cmt where i_cmt = ? ";
+		
+		try {
+			con = BoardDAO.getCon();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, i_cmt);
+			result = ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			BoardDAO.close(con, ps, null);
+			return result;
+		}
+		
 	}
 }
 

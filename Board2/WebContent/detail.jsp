@@ -25,6 +25,7 @@
 </div>
 
 <div>
+
 	<table>
 		<tr>
 			<th>내용</th>
@@ -35,10 +36,11 @@
 		<tr>
 			<td><%=item.getCmt() %></td>
 			<td><%=item.getRdate() %></td>
-			<td><a href=""><button>삭제</button></a></td>
+			<td><a href="cmt?i_cmt=<%=item.getI_cmt()%>&i_board=<%=vo.getI()%>"><button>삭제</button></a></td>
 		</tr>		
 		<% } %>
 	</table>
+
 </div>
 
 

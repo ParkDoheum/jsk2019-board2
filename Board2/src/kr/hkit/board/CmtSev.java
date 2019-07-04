@@ -11,6 +11,18 @@ import javax.servlet.http.HttpServletResponse;
 public class CmtSev extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String i_cmt = request.getParameter("i_cmt");
+		String i_board = request.getParameter("i_board");
+		
+		int result = CmtDAO.delete(Integer.parseInt(i_cmt));
+		
+		if(result != 1) {
+			request.setAttribute("msg", "댓글이 삭제되지 않았습니다.");
+		}
+		response.sendRedirect("detail?i="+ i_board);
+	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String i_board = request.getParameter("i_board");
