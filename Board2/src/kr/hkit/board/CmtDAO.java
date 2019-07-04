@@ -85,7 +85,7 @@ public class CmtDAO {
 	
 	//게시글 댓글 전체 삭제
 	public static int deleteAll(int i_board) {
-		int result = 0;
+		int result = -1;
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = " delete  from t_board_cmt where i_board = ? ";
@@ -97,7 +97,7 @@ public class CmtDAO {
 			result = ps.executeUpdate();
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.printStackTrace();			
 		} finally {
 			BoardDAO.close(con, ps, null);
 			return result;

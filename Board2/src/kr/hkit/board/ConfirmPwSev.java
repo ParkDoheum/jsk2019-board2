@@ -37,7 +37,8 @@ public class ConfirmPwSev extends HttpServlet {
 			int intI = Integer.parseInt(i);
 			
 			int result = CmtDAO.deleteAll(intI);
-			if(result > 0) {
+			System.out.println("댓글삭제 : " + result);
+			if(result != -1) {
 				BoardDAO.delBoard(intI);
 			} 
 			response.sendRedirect("list");
