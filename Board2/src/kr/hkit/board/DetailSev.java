@@ -1,6 +1,7 @@
 package kr.hkit.board;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,6 +16,8 @@ public class DetailSev extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String i = request.getParameter("i");
+		List<CmtVO> list = CmtDAO.selectCmt(i);
+		request.setAttribute("list", list);
 		
 		BoardVO vo = BoardDAO.getBoard(i);		
 		request.setAttribute("vo", vo);

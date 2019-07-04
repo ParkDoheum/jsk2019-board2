@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="kr.hkit.board.*" %>    
+<%@ page import="kr.hkit.board.*" %>
+    <%@ page import="java.util.*" %>
 <%
 	BoardVO vo = (BoardVO)request.getAttribute("vo");	
+	List<CmtVO> list = (List<CmtVO>)request.getAttribute("list");
 %>
 
 <%=vo.getI() %><br>
@@ -29,6 +31,13 @@
 			<th>등록일시</th>
 			<th>삭제</th>
 		</tr>
+		<% for(CmtVO item : list) { %>
+		<tr>
+			<td><%=item.getCmt() %></td>
+			<td><%=item.getRdate() %></td>
+			<td><a href=""><button>삭제</button></a></td>
+		</tr>		
+		<% } %>
 	</table>
 </div>
 
