@@ -16,11 +16,11 @@ public class CmtSev extends HttpServlet {
 		String i_board = request.getParameter("i_board");
 		
 		int result = CmtDAO.delete(Integer.parseInt(i_cmt));
-		
+		int err = 0;
 		if(result != 1) {
-			request.setAttribute("msg", "댓글이 삭제되지 않았습니다.");
+			err = 1;
 		}
-		response.sendRedirect("detail?i="+ i_board);
+		response.sendRedirect("detail?i="+ i_board + "&err=" + err);
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -16,6 +16,14 @@ public class DetailSev extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String i = request.getParameter("i");
+		String err = request.getParameter("err");
+		
+		if(err != null && !err.equals("0")) {
+			if(err.equals("1")) {
+				request.setAttribute("msg", "댓글이 삭제되지 않았습니다.");
+			}
+		}		
+		
 		List<CmtVO> list = CmtDAO.selectCmt(i);
 		request.setAttribute("list", list);
 		
