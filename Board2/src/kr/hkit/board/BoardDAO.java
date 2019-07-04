@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BoardDAO {
-	private static Connection getCon() throws Exception {
+	public static Connection getCon() throws Exception {
 		Class.forName("oracle.jdbc.OracleDriver");
 		final String user = "hr";
 		final String pw = "hkit2019";
@@ -17,7 +17,7 @@ public class BoardDAO {
 		return con;
 	}
 
-	private static void close(Connection con, PreparedStatement ps, ResultSet rs) {
+	public static void close(Connection con, PreparedStatement ps, ResultSet rs) {
 		try {
 			if (rs != null) {
 				rs.close();

@@ -30,9 +30,7 @@ public class ConfirmPwSev extends HttpServlet {
 		if(!BoardDAO.confirmPw(pw, Integer.parseInt(i))) {
 			request.setAttribute("msg", "비밀번호가 틀렸습니다.");
 			doGet(request, response);
-		}
-		
-		if(typ.equals("1")) { //수정
+		} else if(typ.equals("1")) { //수정
 			response.sendRedirect("mod?i=" + i);
 			
 		} else if(typ.equals("2")) { //삭제			

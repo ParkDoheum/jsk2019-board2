@@ -2,6 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
 <%@ page import="kr.hkit.board.*" %>
+<%!
+	int[] recordCntArray = {10, 20, 30, 40};
+
+
+%>
 <%
 	String search = request.getParameter("search");
 	if(search == null) {
@@ -9,11 +14,22 @@
 	}
 	List<BoardVO> list = (List<BoardVO>) request.getAttribute("list");
 	int totalPagingCnt = (int)request.getAttribute("totalPagingCnt");
+	int recordCnt = (int)request.getAttribute("recordCnt");
+	
 %>    
 <div>
-	<form method="get" action="list">
+	<form id="frm" method="get" action="list">
 		<input type="text" name="search" value="<%=search%>">
 		<input type="submit" value="검색">
+		레코드수: 
+		<select name="recordCnt" onchange="changeRecordCnt()">
+			<% for(int i=0; i<recordCntArray.length; i++)  {%>
+				<option value="<%=recordCntArray[i] %>" 
+				<% if(recordCnt == recordCntArray[i]) { %> selected <% } %>>
+					<%=recordCntArray[i] %>
+				</option>
+			<% } %>		
+		</select>
 	</form>
 </div>
 <table>
@@ -32,10 +48,16 @@
 </table>
 <div>
 	<% for(int i=1; i<=totalPagingCnt; i++) { %>
-		<a href="list?page=<%=i %>&search=<%=search%>"><%=i %></a>
+		<a href="list?page=<%=i %>&search=<%=search%>&recordCnt=<%=recordCnt%>"><%=i %></a>
 	<% } %> 
 </div>
-
+<script>
+	function changeRecordCnt() {
+		var recordCntVal = frm.recordCnt.value;
+		var searchVal = frm.search.value;
+		location.href = 'list?recordCnt=' + recordCntVal + '&search=' + searchVal;
+	}
+</script>
 
 
 

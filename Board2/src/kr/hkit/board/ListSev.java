@@ -23,6 +23,11 @@ public class ListSev extends HttpServlet {
 		}
 		
 		int recordCnt = 10;
+		String sRecordCnt = request.getParameter("recordCnt");
+		if(sRecordCnt != null && !sRecordCnt.equals("")) {
+			recordCnt = Integer.parseInt(sRecordCnt);
+		}
+		request.setAttribute("recordCnt", recordCnt);
 		
 		//페이징 숫자를 찍기위한 용도
 		int totalPagingCnt = BoardDAO.getTotalPagingCnt(recordCnt, search);
