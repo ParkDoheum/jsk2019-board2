@@ -29,9 +29,10 @@
 		if(msg != null) {
 			out.print(msg);
 		}	
-	%>
-	
+	%>	
 </div>
+
+<% if(list.size() > 0)  { %> 
 <div>
 	<table>
 		<tr>
@@ -50,9 +51,8 @@
 		</tr>		
 		<% } %>
 	</table>
-
 </div>
-
+<% } %>
 
 
 

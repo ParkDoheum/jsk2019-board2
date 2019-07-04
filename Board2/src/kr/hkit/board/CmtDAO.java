@@ -80,6 +80,27 @@ public class CmtDAO {
 		} finally {
 			BoardDAO.close(con, ps, null);
 			return result;
+		}		
+	}
+	
+	//게시글 댓글 전체 삭제
+	public static int deleteAll(int i_board) {
+		int result = 0;
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = " delete  from t_board_cmt where i_board = ? ";
+		
+		try {
+			con = BoardDAO.getCon();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, i_board);
+			result = ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			BoardDAO.close(con, ps, null);
+			return result;
 		}
 		
 	}
